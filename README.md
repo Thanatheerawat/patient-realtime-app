@@ -58,7 +58,9 @@ all with safe defaults, and there are no secrets/API keys to configure:
 
 ## Deployment
 
-**Live URL:** _pending — see [`DEPLOY.md`](./DEPLOY.md)_
+**Live URL:** https://patient-realtime-intake.onrender.com
+(deployed on Render's free tier — the service spins down after 15 minutes of
+inactivity and takes ~30–50s to wake back up on the next request)
 
 This app uses a persistent WebSocket connection, which needs a long-lived Node
 process — Vercel's serverless functions close after each request and can't hold a
