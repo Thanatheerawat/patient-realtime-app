@@ -73,8 +73,8 @@ their separate WebSocket/Edge-function offerings wired in instead of the
 `server.js` used here.
 
 A `render.yaml` blueprint is included so Render can auto-configure the build
-and start commands. See [`DEPLOY.md`](./DEPLOY.md) for exact step-by-step
-deploy instructions.
+and start commands. See [`text/DEPLOY.md`](./text/DEPLOY.md) for exact
+step-by-step deploy instructions (in Thai).
 
 ## Bonus Features
 
@@ -89,6 +89,10 @@ deploy instructions.
   the staff dashboard.
 - UI styled to match **Agnos's own brand look** (indigo/violet gradients,
   rounded glassy cards, pill-shaped status chips) rather than a generic form.
+- **Light/dark mode toggle** (sun/moon icon in the header) — defaults to the
+  visitor's OS preference on first visit, then remembers their choice in
+  `localStorage`. Applied before first paint so there's no flash of the wrong
+  theme on load or page navigation.
 
 ## Known Limitations
 
@@ -114,5 +118,15 @@ deploy instructions.
 See [`docs/PLANNING.md`](./docs/PLANNING.md) for project structure, design
 decisions, component architecture, and the real-time synchronization flow.
 
-See [`docs/REQUIREMENTS_MAPPING.md`](./docs/REQUIREMENTS_MAPPING.md) for a
-requirement-by-requirement mapping back to the original assignment PDF.
+See [`text/REQUIREMENTS_MAPPING.md`](./text/REQUIREMENTS_MAPPING.md) for a
+requirement-by-requirement mapping back to the original assignment PDF (in
+Thai).
+
+## Audit & Deployment Records (Thai)
+
+The `text/` folder holds explanatory documentation written in Thai:
+[`FINAL_AUDIT.md`](./text/FINAL_AUDIT.md) (full production-readiness audit),
+[`FINAL_CHECKLIST.md`](./text/FINAL_CHECKLIST.md),
+[`DEPLOY_CHECKLIST.md`](./text/DEPLOY_CHECKLIST.md), and
+[`DEPLOY.md`](./text/DEPLOY.md) — none of these are referenced by the running
+application; they're project documentation only.

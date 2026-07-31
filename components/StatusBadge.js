@@ -2,17 +2,17 @@ const STATUS_STYLES = {
   submitted: {
     label: "Submitted",
     dot: "bg-emerald-500",
-    pill: "bg-emerald-50 text-emerald-700 ring-emerald-600/20",
+    pill: "bg-emerald-50 text-emerald-700 ring-emerald-600/20 dark:bg-emerald-500/15 dark:text-emerald-300 dark:ring-emerald-400/20",
   },
   filling: {
     label: "Filling in",
     dot: "bg-amber-500 motion-safe:animate-pulse",
-    pill: "bg-amber-50 text-amber-700 ring-amber-600/20",
+    pill: "bg-amber-50 text-amber-700 ring-amber-600/20 dark:bg-amber-500/15 dark:text-amber-300 dark:ring-amber-400/20",
   },
   inactive: {
     label: "Inactive",
     dot: "bg-slate-400",
-    pill: "bg-slate-100 text-slate-600 ring-slate-500/20",
+    pill: "bg-slate-100 text-slate-600 ring-slate-500/20 dark:bg-white/5 dark:text-slate-400 dark:ring-white/10",
   },
 };
 

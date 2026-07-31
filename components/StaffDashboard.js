@@ -81,8 +81,8 @@ export default function StaffDashboard() {
     <div className="mx-auto flex max-w-6xl flex-col gap-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl font-semibold text-slate-900">Staff View</h1>
-          <p className="text-sm text-slate-500">
+          <h1 className="text-xl font-semibold text-slate-900 dark:text-slate-50">Staff View</h1>
+          <p className="text-sm text-slate-500 dark:text-slate-400">
             Live status of patients currently filling in the registration form.
           </p>
         </div>
@@ -90,7 +90,9 @@ export default function StaffDashboard() {
           role="status"
           aria-live="polite"
           className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ${
-            connected ? "bg-emerald-50 text-emerald-700" : "bg-slate-100 text-slate-500"
+            connected
+              ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300"
+              : "bg-slate-100 text-slate-500 dark:bg-white/5 dark:text-slate-400"
           }`}
         >
           <span className={`h-1.5 w-1.5 rounded-full ${connected ? "bg-emerald-500" : "bg-slate-400"}`} />
@@ -99,24 +101,24 @@ export default function StaffDashboard() {
       </div>
 
       <div role="status" aria-live="polite" className="grid grid-cols-3 gap-3 sm:max-w-md">
-        <div className="rounded-2xl border border-white/60 bg-white/80 p-3 text-center shadow-sm shadow-indigo-100 backdrop-blur">
-          <p className="text-lg font-semibold text-amber-600">{counts.filling}</p>
-          <p className="text-xs text-slate-500">Filling in</p>
+        <div className="rounded-2xl border border-white/60 bg-white/80 p-3 text-center shadow-sm shadow-indigo-100 backdrop-blur dark:border-white/10 dark:bg-slate-900/60 dark:shadow-none">
+          <p className="text-lg font-semibold text-amber-600 dark:text-amber-400">{counts.filling}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400">Filling in</p>
         </div>
-        <div className="rounded-2xl border border-white/60 bg-white/80 p-3 text-center shadow-sm shadow-indigo-100 backdrop-blur">
-          <p className="text-lg font-semibold text-emerald-600">{counts.submitted}</p>
-          <p className="text-xs text-slate-500">Submitted</p>
+        <div className="rounded-2xl border border-white/60 bg-white/80 p-3 text-center shadow-sm shadow-indigo-100 backdrop-blur dark:border-white/10 dark:bg-slate-900/60 dark:shadow-none">
+          <p className="text-lg font-semibold text-emerald-600 dark:text-emerald-400">{counts.submitted}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400">Submitted</p>
         </div>
-        <div className="rounded-2xl border border-white/60 bg-white/80 p-3 text-center shadow-sm shadow-indigo-100 backdrop-blur">
-          <p className="text-lg font-semibold text-slate-500">{counts.inactive}</p>
-          <p className="text-xs text-slate-500">Inactive</p>
+        <div className="rounded-2xl border border-white/60 bg-white/80 p-3 text-center shadow-sm shadow-indigo-100 backdrop-blur dark:border-white/10 dark:bg-slate-900/60 dark:shadow-none">
+          <p className="text-lg font-semibold text-slate-500 dark:text-slate-300">{counts.inactive}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400">Inactive</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[320px_1fr]">
         <div className="flex flex-col gap-3">
           {sessionList.length === 0 ? (
-            <div className="rounded-3xl border border-dashed border-indigo-200 bg-white/60 p-8 text-center text-sm text-slate-500 backdrop-blur">
+            <div className="rounded-3xl border border-dashed border-indigo-200 bg-white/60 p-8 text-center text-sm text-slate-500 backdrop-blur dark:border-indigo-500/20 dark:bg-slate-900/40 dark:text-slate-400">
               No patients yet. Once someone opens the patient form, they’ll show up here.
             </div>
           ) : (

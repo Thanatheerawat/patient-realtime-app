@@ -9,15 +9,15 @@ export default function Home() {
     <main className="flex flex-1 items-center justify-center px-4 py-16">
       <div className="flex w-full max-w-3xl flex-col items-center gap-10 text-center">
         <div className="flex flex-col items-center gap-3">
-          <span className="flex h-14 w-14 items-center justify-center rounded-3xl bg-gradient-to-br from-indigo-500 to-violet-600 text-white shadow-lg shadow-indigo-200">
+          <span className="flex h-14 w-14 items-center justify-center rounded-3xl bg-gradient-to-br from-indigo-500 to-violet-600 text-white shadow-lg shadow-indigo-200 dark:shadow-none">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-7 w-7">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 21c-4.5-3-8-6.5-8-10.5A5.5 5.5 0 0112 6a5.5 5.5 0 018 4.5c0 4-3.5 7.5-8 10.5z" />
             </svg>
           </span>
-          <h1 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
+          <h1 className="text-2xl font-semibold text-slate-900 sm:text-3xl dark:text-slate-50">
             Real-Time Patient Intake
           </h1>
-          <p className="max-w-md text-sm text-slate-500 sm:text-base">
+          <p className="max-w-md text-sm text-slate-500 sm:text-base dark:text-slate-400">
             Patients fill in their details on one screen while front desk staff watch it arrive on
             the other — live, no refresh needed.
           </p>
@@ -26,32 +26,32 @@ export default function Home() {
         <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
           <Link
             href="/patient"
-            className="group flex flex-col items-start gap-2 rounded-3xl border border-white/60 bg-white/80 p-6 text-left shadow-lg shadow-indigo-100 backdrop-blur transition hover:-translate-y-0.5 hover:shadow-xl"
+            className="group flex flex-col items-start gap-2 rounded-3xl border border-white/60 bg-white/80 p-6 text-left shadow-lg shadow-indigo-100 backdrop-blur transition hover:-translate-y-0.5 hover:shadow-xl dark:border-white/10 dark:bg-slate-900/60 dark:shadow-none dark:hover:bg-slate-900/80"
           >
-            <span className="rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-medium text-indigo-700">
+            <span className="rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-medium text-indigo-700 dark:bg-indigo-500/15 dark:text-indigo-300">
               Patient
             </span>
-            <h2 className="text-lg font-semibold text-slate-900">Fill in my information</h2>
-            <p className="text-sm text-slate-500">
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-50">Fill in my information</h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400">
               Open the registration form and enter your personal details.
             </p>
-            <span className="mt-2 text-sm font-medium text-indigo-600 group-hover:underline">
+            <span className="mt-2 text-sm font-medium text-indigo-600 group-hover:underline dark:text-indigo-400">
               Go to patient form →
             </span>
           </Link>
 
           <Link
             href="/staff"
-            className="group flex flex-col items-start gap-2 rounded-3xl border border-white/60 bg-white/80 p-6 text-left shadow-lg shadow-indigo-100 backdrop-blur transition hover:-translate-y-0.5 hover:shadow-xl"
+            className="group flex flex-col items-start gap-2 rounded-3xl border border-white/60 bg-white/80 p-6 text-left shadow-lg shadow-indigo-100 backdrop-blur transition hover:-translate-y-0.5 hover:shadow-xl dark:border-white/10 dark:bg-slate-900/60 dark:shadow-none dark:hover:bg-slate-900/80"
           >
-            <span className="rounded-full bg-violet-50 px-2.5 py-1 text-xs font-medium text-violet-700">
+            <span className="rounded-full bg-violet-50 px-2.5 py-1 text-xs font-medium text-violet-700 dark:bg-violet-500/15 dark:text-violet-300">
               Staff
             </span>
-            <h2 className="text-lg font-semibold text-slate-900">Monitor patients</h2>
-            <p className="text-sm text-slate-500">
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-50">Monitor patients</h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400">
               Watch patient information arrive in real time as it&apos;s entered.
             </p>
-            <span className="mt-2 text-sm font-medium text-indigo-600 group-hover:underline">
+            <span className="mt-2 text-sm font-medium text-indigo-600 group-hover:underline dark:text-indigo-400">
               Go to staff view →
             </span>
           </Link>
