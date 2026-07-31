@@ -10,7 +10,7 @@ function initials(fields) {
 export default function SessionDetail({ session }) {
   if (!session) {
     return (
-      <div className="flex h-full flex-col items-center justify-center gap-2 rounded-3xl border border-dashed border-indigo-200 bg-white/60 p-12 text-center text-slate-400 backdrop-blur">
+      <div className="flex h-full flex-col items-center justify-center gap-2 rounded-3xl border border-dashed border-indigo-200 bg-white/60 p-12 text-center text-slate-500 backdrop-blur">
         <p className="text-sm">Select a patient session on the left to view their information.</p>
       </div>
     );
@@ -30,7 +30,7 @@ export default function SessionDetail({ session }) {
               {[fields.firstName, fields.middleName, fields.lastName].filter(Boolean).join(" ") ||
                 "New patient"}
             </h2>
-            <p className="text-xs text-slate-400">Session #{sessionId.slice(0, 8)}</p>
+            <p className="text-xs text-slate-500">Session #{sessionId.slice(0, 8)}</p>
           </div>
         </div>
         <StatusBadge status={status} />
@@ -46,9 +46,9 @@ export default function SessionDetail({ session }) {
               const value = fields[field.name];
               return (
                 <div key={field.name} className="rounded-xl bg-slate-50/80 px-3.5 py-2.5">
-                  <dt className="text-xs text-slate-400">{field.label}</dt>
+                  <dt className="text-xs text-slate-500">{field.label}</dt>
                   <dd
-                    className={`text-sm ${value ? "font-medium text-slate-800" : "italic text-slate-300"}`}
+                    className={`text-sm ${value ? "font-medium text-slate-800" : "italic text-slate-500"}`}
                   >
                     {value || "Not filled in yet"}
                   </dd>

@@ -6,7 +6,7 @@ const STATUS_STYLES = {
   },
   filling: {
     label: "Filling in",
-    dot: "bg-amber-500 animate-pulse",
+    dot: "bg-amber-500 motion-safe:animate-pulse",
     pill: "bg-amber-50 text-amber-700 ring-amber-600/20",
   },
   inactive: {

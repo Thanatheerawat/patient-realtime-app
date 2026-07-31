@@ -45,6 +45,17 @@ npm run build
 npm start
 ```
 
+## Environment Variables
+
+None are required to run this app. `server.js` reads three optional variables,
+all with safe defaults, and there are no secrets/API keys to configure:
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `PORT` | `3000` | Port the HTTP + WebSocket server listens on (Render sets this automatically) |
+| `HOSTNAME` | `0.0.0.0` | Bind address (`0.0.0.0` is required for the server to be reachable on most hosts, including Render) |
+| `NODE_ENV` | — | `production` enables the built production build; anything else runs in dev mode |
+
 ## Deployment
 
 **Live URL:** _pending — see [`DEPLOY.md`](./DEPLOY.md)_
@@ -76,6 +87,25 @@ deploy instructions.
   the staff dashboard.
 - UI styled to match **Agnos's own brand look** (indigo/violet gradients,
   rounded glassy cards, pill-shaped status chips) rather than a generic form.
+
+## Known Limitations
+
+- **No authentication.** `/staff` is not gated behind a login — anyone with the
+  URL can view every patient's personal information. The assignment brief
+  didn't call for auth, so none was built, but this would need to change
+  before handling real patient data. The clean way to add it later: put
+  `/staff` behind a session-based login (e.g. `next-auth`) and check it in a
+  `middleware.js` before allowing the socket to `staff:join`.
+- **In-memory session store.** Patient/session data lives in a `Map` inside
+  the running process (`server.js`). It's lost on every restart/redeploy, and
+  wouldn't stay consistent if the app ever scaled to multiple instances. Fine
+  for this assignment's scope; a real deployment would move it to Redis or a
+  database.
+- **No server-side rate limiting.** Debouncing on the client keeps normal
+  usage light, but nothing stops a modified client from flooding the socket
+  with events. Field values are capped in length and validated server-side
+  before being trusted as "submitted" (see `server.js`), but there's no
+  per-connection rate limit.
 
 ## Development Planning Documentation
 

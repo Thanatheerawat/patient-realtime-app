@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Patient Registration | Real-Time Front Desk",
+  title: "Real-Time Patient Intake",
   description: "Responsive real-time patient intake form and staff monitoring view.",
 };
 

@@ -1,5 +1,9 @@
 import Link from "next/link";
 
+export const metadata = {
+  title: "Real-Time Patient Intake | Front Desk",
+};
+
 export default function Home() {
   return (
     <main className="flex flex-1 items-center justify-center px-4 py-16">

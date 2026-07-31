@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { getSocket } from "@/lib/socket";
-import { EMPTY_FORM, FIELD_SECTIONS } from "@/lib/fields";
+import { ALL_FIELDS, EMPTY_FORM, FIELD_SECTIONS, REQUIRED_FIELDS } from "@/lib/fields";
 import { validateField, validateForm } from "@/lib/validation";
 import FormField from "./FormField";
 
@@ -25,7 +25,11 @@ export default function PatientForm() {
   const [touched, setTouched] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [connected, setConnected] = useState(false);
-  const debounceRef = useRef(null);
+  // One pending debounce timer per field, keyed by field name — using a
+  // single shared timer would let a change to one field cancel another
+  // field's still-pending sync whenever they're edited within 250ms of
+  // each other (e.g. tabbing quickly between fields).
+  const debounceTimersRef = useRef(new Map());
 
   useEffect(() => {
     if (!sessionId) return;
@@ -37,25 +41,43 @@ export default function PatientForm() {
     };
     const handleDisconnect = () => setConnected(false);
 
+    // The server sends back whatever it already has for this session right
+    // after patient:join — restores in-progress answers after a page
+    // refresh, and shows the confirmation screen instead of a blank
+    // editable form if this session was already submitted.
+    const handleSessionState = (session) => {
+      if (!session) return;
+      if (session.status === "submitted") {
+        setSubmitted(true);
+      } else if (session.fields && Object.keys(session.fields).length > 0) {
+        setValues((prev) => ({ ...prev, ...session.fields }));
+      }
+    };
+
     socket.on("connect", handleConnect);
     socket.on("disconnect", handleDisconnect);
+    socket.on("session:state", handleSessionState);
     if (socket.connected) handleConnect();
 
     return () => {
       socket.off("connect", handleConnect);
       socket.off("disconnect", handleDisconnect);
+      socket.off("session:state", handleSessionState);
     };
   }, [sessionId]);
 
-  const requiredCount = useMemo(
-    () => FIELD_SECTIONS.flatMap((s) => s.fields).filter((f) => f.required).length,
-    []
-  );
+  // Clear any pending debounced updates so they don't fire after unmount.
+  useEffect(() => {
+    const timers = debounceTimersRef.current;
+    return () => {
+      for (const timer of timers.values()) clearTimeout(timer);
+      timers.clear();
+    };
+  }, []);
+
+  const requiredCount = REQUIRED_FIELDS.length;
   const filledRequiredCount = useMemo(
-    () =>
-      FIELD_SECTIONS.flatMap((s) => s.fields)
-        .filter((f) => f.required)
-        .filter((f) => values[f.name]?.toString().trim()).length,
+    () => REQUIRED_FIELDS.filter((name) => values[name]?.toString().trim()).length,
     [values]
   );
 
@@ -64,10 +86,15 @@ export default function PatientForm() {
     setValues(next);
     setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
 
-    if (debounceRef.current) clearTimeout(debounceRef.current);
-    debounceRef.current = setTimeout(() => {
-      getSocket().emit("patient:update", { sessionId, fields: { [name]: value } });
-    }, 250);
+    const timers = debounceTimersRef.current;
+    if (timers.has(name)) clearTimeout(timers.get(name));
+    timers.set(
+      name,
+      setTimeout(() => {
+        timers.delete(name);
+        getSocket().emit("patient:update", { sessionId, fields: { [name]: value } });
+      }, 250)
+    );
   }
 
   function handleBlur(name) {
@@ -79,9 +106,7 @@ export default function PatientForm() {
     e.preventDefault();
     const { isValid, errors: allErrors } = validateForm(values);
     setErrors(allErrors);
-    setTouched(
-      FIELD_SECTIONS.flatMap((s) => s.fields).reduce((acc, f) => ({ ...acc, [f.name]: true }), {})
-    );
+    setTouched(ALL_FIELDS.reduce((acc, f) => ({ ...acc, [f.name]: true }), {}));
     if (!isValid) return;
 
     getSocket().emit("patient:submit", { sessionId, fields: values });
@@ -106,7 +131,7 @@ export default function PatientForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mx-auto flex max-w-2xl flex-col gap-6">
+    <form onSubmit={handleSubmit} noValidate className="mx-auto flex max-w-2xl flex-col gap-6">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-semibold text-slate-900">Patient Registration</h1>
