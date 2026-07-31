@@ -47,13 +47,21 @@ npm start
 
 ## Deployment
 
+**Live URL:** _pending — see [`DEPLOY.md`](./DEPLOY.md)_
+
 This app uses a persistent WebSocket connection, which needs a long-lived Node
 process — Vercel's serverless functions close after each request and can't hold a
-socket open. Deploy `npm run build` + `npm start` (which runs `server.js`) to a
-platform that keeps a process running, e.g. **Render**, **Railway**, **Fly.io**, or
-a traditional **Heroku** dyno. Netlify/Vercel work fine for the static parts but
-would need their separate WebSocket/Edge-function offerings wired in instead of
-the `server.js` used here.
+socket open (they also never run `server.js` at all — Vercel deploys Next.js apps
+through its own function handler, ignoring custom servers entirely). Deploy
+`npm run build` + `npm start` (which runs `server.js`) to a platform that keeps a
+process running, e.g. **Render**, **Railway**, **Fly.io**, or a traditional
+**Heroku** dyno. Netlify/Vercel work fine for the static parts but would need
+their separate WebSocket/Edge-function offerings wired in instead of the
+`server.js` used here.
+
+A `render.yaml` blueprint is included so Render can auto-configure the build
+and start commands. See [`DEPLOY.md`](./DEPLOY.md) for exact step-by-step
+deploy instructions.
 
 ## Bonus Features
 
